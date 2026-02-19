@@ -14,8 +14,8 @@ const PARITY_ERROR = 'PARITY ERROR!!! PARITY ERROR!!! SESSION TERMINATED.';
  */
 export async function createEliza(language) {
   const [rulesData, reflectionsData] = await Promise.all([
-    fetch(`/rules_${language}.yaml`).then((r) => r.text()).then((t) => jsyaml.load(t)),
-    fetch(`/reflections_${language}.yaml`).then((r) => r.text()).then((t) => jsyaml.load(t)),
+    fetch(`${import.meta.env.BASE_URL}rules_${language}.yaml`).then((r) => r.text()).then((t) => jsyaml.load(t)),
+    fetch(`${import.meta.env.BASE_URL}reflections_${language}.yaml`).then((r) => r.text()).then((t) => jsyaml.load(t)),
   ]);
 
   // Build rules array with round-robin index per PatternResponse

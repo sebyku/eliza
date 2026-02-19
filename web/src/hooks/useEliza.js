@@ -27,7 +27,7 @@ export function useEliza(initialLanguage = 'us') {
 
       const [engine, msgData] = await Promise.all([
         createEliza(language),
-        fetch(`/messages_${language}.yaml`)
+        fetch(`${import.meta.env.BASE_URL}messages_${language}.yaml`)
           .then((r) => r.text())
           .then((t) => jsyaml.load(t)),
       ]);
