@@ -1,0 +1,31 @@
+intro: |
+  ╔══════════════════════════════════════════════════════════════╗
+  ║                        E L I Z A                             ║
+  ║          A Rogerian Psychotherapist Simulation               ║
+  ║       Based on Joseph Weizenbaum's 1966 program              ║
+  ║                                                              ║
+  ║  Type anything to talk to ELIZA. Type "quit" to exit.        ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+greetings:
+  - "Hello. I'm ELIZA. How are you feeling today?"
+  - "Hello. I'm ELIZA. What is troubling you?"
+  - "Hello, I am ELIZA. What is your name?"
+  - "Hello, I am ELIZA. What is your problem?"
+  - "Welcome. I am ELIZA. Please tell me your name."
+  - "Welcome. I am ELIZA. Tell me what is on your mind."
+
+prompt: "You:   "
+
+goodbye: "Goodbye. Thank you for talking with me."
+
+quit_words:
+  - "quit"
+  - "bye"
+  - "exit"
+
+crash:
+  - "*** SYSTEM HALTED ***"
+  - "*** MEMORY DUMP: 0x0000 - 0xFFFF ***"
+  - "*** FATAL EXCEPTION IN MODULE ELIZA.EXE ***"
+  - "*** REBOOT REQUIRED ***"

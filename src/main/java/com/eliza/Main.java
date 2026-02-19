@@ -1,5 +1,10 @@
 package com.eliza;
 
+import org.yaml.snakeyaml.Yaml;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,35 +14,34 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final String INTRO = """
-            ╔══════════════════════════════════════════════════════════════╗
-            ║                        E L I Z A                             ║
-            ║          A Rogerian Psychotherapist Simulation               ║
-            ║       Based on Joseph Weizenbaum's 1966 program              ║
-            ║                                                              ║
-            ║  Type anything to talk to ELIZA. Type "quit" to exit.        ║
-            ╚══════════════════════════════════════════════════════════════╝
-            """;
-
-    private static final String[] GREETINGS = {
-            "Hello. I'm ELIZA. How are you feeling today?",
-            "Hello. I'm ELIZA. What is troubling you?",
-            "Hello, I am ELIZA. What is your name?",
-            "Hello, I am ELIZA. What is your problem?",
-            "Welcome. I am ELIZA. Please tell me your name.",
-            "Welcome. I am ELIZA. Tell me what is on your mind.",
-    };
-
     public static void main(String[] args) {
-        Eliza eliza = new Eliza();
+        String language = "us";
+        if (args.length > 0) {
+            String arg = args[0].toLowerCase();
+            if ("fr".equals(arg) || "us".equals(arg)) {
+                language = arg;
+            } else {
+                System.err.println("Unknown language: " + args[0] + ". Supported: us, fr. Defaulting to us.");
+            }
+        }
+
+        Map<String, Object> messages = loadMessages(language);
+        Eliza eliza = new Eliza(language);
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-        System.out.println(INTRO);
-        System.out.println("ELIZA: " + GREETINGS[random.nextInt(GREETINGS.length)] + "\n");
+        String intro = ((String) messages.get("intro")).stripTrailing();
+        List<String> greetings = getList(messages, "greetings");
+        String prompt = (String) messages.get("prompt");
+        String goodbye = (String) messages.get("goodbye");
+        List<String> quitWords = getList(messages, "quit_words");
+        List<String> crashLines = getList(messages, "crash");
+
+        System.out.println(intro);
+        System.out.println("ELIZA: " + greetings.get(random.nextInt(greetings.size())) + "\n");
 
         while (true) {
-            System.out.print("You:   ");
+            System.out.print(prompt);
             if (!scanner.hasNextLine()) {
                 break;
             }
@@ -47,9 +51,8 @@ public class Main {
                 continue;
             }
 
-            if (input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("bye")
-                    || input.equalsIgnoreCase("exit")) {
-                System.out.println("\nELIZA: Goodbye. Thank you for talking with me.");
+            if (quitWords.stream().anyMatch(input::equalsIgnoreCase)) {
+                System.out.println("\nELIZA: " + goodbye);
                 break;
             }
 
@@ -58,14 +61,33 @@ public class Main {
 
             if (eliza.hasParityError()) {
                 try { Thread.sleep(500); } catch (InterruptedException ignored) {}
-                System.out.println("    *** SYSTEM HALTED ***");
-                System.out.println("    *** MEMORY DUMP: 0x0000 - 0xFFFF ***");
-                System.out.println("    *** FATAL EXCEPTION IN MODULE ELIZA.EXE ***");
-                System.out.println("    *** REBOOT REQUIRED ***\n");
+                for (String line : crashLines) {
+                    System.out.println("    " + line);
+                }
+                System.out.println();
                 break;
             }
         }
 
         scanner.close();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<String> getList(Map<String, Object> map, String key) {
+        return (List<String>) map.get(key);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> loadMessages(String language) {
+        String filename = "messages_" + language + ".yaml";
+        Yaml yaml = new Yaml();
+        try (InputStream in = Main.class.getClassLoader().getResourceAsStream(filename)) {
+            if (in == null) {
+                throw new IllegalStateException(filename + " not found on classpath");
+            }
+            return yaml.load(in);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("Failed to load " + filename, e);
+        }
     }
 }

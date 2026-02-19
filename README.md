@@ -6,11 +6,13 @@ A Java implementation of Joseph Weizenbaum's [ELIZA](https://en.wikipedia.org/wi
 
 - **Keyword-based pattern matching** with decomposition/reassembly rules, following Weizenbaum's original design
 - **Priority system** — when multiple keywords match, the highest-priority rule wins; if its patterns don't fit, the engine falls through to the next matching rule
-- **Pronoun reflection** — captured text is reflected (`I` → `you`, `my` → `your`, etc.)
+- **Pronoun reflection** — captured text is reflected (`I` → `you`, `my` → `your`, `je` → `vous`, etc.)
 - **Round-robin responses** — each pattern cycles through its reassembly templates
 - **Memory** — certain rules store a response for later recall when no keyword matches
 - **Parity error** — repeated insults trigger a Dr. Sbaitso-style fake crash (`PARITY ERROR!!! SESSION TERMINATED.`)
-- **YAML-driven rules** — all rules and reflections are defined in external YAML files, easy to extend
+- **YAML-driven rules** — all rules, reflections, and UI messages are defined in external YAML files, easy to extend
+- **Multilingual** — English (default) and French, selectable at startup via a CLI argument
+- **Accent-insensitive matching** — French users can type with or without accents (`deprime` matches `déprimé`); ligatures like `œ` are also handled (`sœur` matches `soeur`)
 
 ## Requirements
 
@@ -28,27 +30,32 @@ This produces an executable fat JAR at `target/eliza.jar`.
 ## Run
 
 ```bash
+# English (default)
 java -jar target/eliza.jar
+
+# French
+java -jar target/eliza.jar fr
 ```
 
 Or on Windows:
 
 ```cmd
 eliza.cmd
+eliza.cmd fr
 ```
 
-Type anything to talk to ELIZA. Type `quit`, `bye`, or `exit` to end the session.
+### English session
 
-## Example session
+Type anything to talk to ELIZA. Type `quit`, `bye`, or `exit` to end the session.
 
 ```
 ELIZA: Hello. I'm ELIZA. How are you feeling today?
 
 You:   I am feeling sad
-ELIZA: How long have you been feeling sad?
+ELIZA: I'm sorry to hear that you are sad.
 
 You:   Since my mother passed away
-ELIZA: Tell me more about your family.
+ELIZA: Tell me more about your mother.
 
 You:   I dream about her sometimes
 ELIZA: What does that dream suggest to you?
@@ -60,43 +67,69 @@ You:   bye
 ELIZA: Goodbye. Thank you for talking with me.
 ```
 
+### French session
+
+Tapez ce que vous voulez. Tapez `quitter`, `quit` ou `au revoir` pour sortir.
+
+```
+ELIZA: Bonjour. Je suis ELIZA. Comment vous sentez-vous aujourd'hui ?
+
+Vous:  je suis triste
+ELIZA: Je suis désolé d'apprendre que vous êtes triste.
+
+Vous:  ma mere est decedee
+ELIZA: Parlez-moi davantage de votre mère.
+
+Vous:  je reve d'elle parfois
+ELIZA: Que vous suggère ce rêve ?
+
+Vous:  quitter
+ELIZA: Au revoir. Merci d'avoir parlé avec moi.
+```
+
 ## Project structure
 
 ```
 src/
   main/
     java/com/eliza/
-      Eliza.java          # Engine: matching, reflection, memory, insult tracking
-      Rule.java           # Rule record with PatternResponse (round-robin)
-      Main.java           # Console interface
+      Eliza.java              # Engine: matching, reflection, memory, insult tracking
+      Rule.java               # Rule record with PatternResponse (round-robin)
+      Main.java               # Console interface, loads messages from YAML
     resources/
-      rules.yaml          # ~90 keyword rules with decomposition/reassembly patterns
-      reflections.yaml    # Pronoun/verb reflection mappings
+      rules_us.yaml           # ~170 English keyword rules
+      rules_fr.yaml           # ~180 French keyword rules
+      reflections_us.yaml     # English pronoun/verb reflection mappings
+      reflections_fr.yaml     # French pronoun/verb reflection mappings
+      messages_us.yaml        # English UI strings (intro, greetings, prompts, etc.)
+      messages_fr.yaml        # French UI strings
   test/
     java/com/eliza/
-      ElizaTest.java      # 24 JUnit 5 tests
+      ElizaTest.java          # 32 JUnit 5 tests
 ```
 
 ## How it works
 
-1. **Preprocess** — trim, strip trailing punctuation, normalize whitespace, lowercase
-2. **Match** — find all rules whose keyword appears in the input, sorted by descending priority
-3. **Decompose** — for each matching rule, try its regex patterns against the input
-4. **Reassemble** — fill the response template with captured groups, reflecting pronouns
+1. **Preprocess** — trim, strip trailing punctuation, normalize whitespace, lowercase, strip accents and expand ligatures (`œ` → `oe`)
+2. **Match** — find all rules whose keyword appears in the input (accent-insensitive), sorted by descending priority
+3. **Decompose** — for each matching rule, try its regex patterns (accent-insensitive) against the input
+4. **Reassemble** — fill the response template with captured groups, reflecting pronouns; responses keep proper accents
 5. **Fallback chain** — if no pattern fits, try the next rule; then check memory; then use the `@none` fallback
 
 ### Rule priority tiers
 
 | Priority | Category |
 |----------|----------|
-| 7 | Safety (die) |
-| 6 | Computer |
-| 5 | Family, "I remember", "I want", "I feel", insults (stupid, idiot, shut up, ...) |
+| 7 | Safety (die/mourir) |
+| 6 | Computer/ordinateur |
+| 5 | Family, "I remember", "I want", "I feel", insults |
 | 4 | Emotions, topics (dream, sad, angry, ...) |
-| 3 | Greetings, misc patterns, ambiguous adjective insults (annoying, boring, ...) |
-| 2 | "my", absolutes (always, never) |
+| 3 | Greetings, misc patterns, work, help |
+| 2 | "I am"/"je suis", "my", absolutes (always, never) |
 | 1 | Yes/no, uncertainty, sorry |
 | 0 | `@none` fallback |
+
+Note: `"i am"` / `"je suis"` are intentionally low priority (2) so that specific keywords like `"sad"` (4) or `"depressed"` (4) win when the input is `"I am sad"`.
 
 ### Memory
 
@@ -112,11 +145,18 @@ Rules tagged with `insult: true` increment a counter when matched. After 4 insul
 mvn test
 ```
 
-24 tests covering keyword matching, priority ordering, pronoun reflection, preprocessing, round-robin cycling, fallback, memory storage/recall, and parity error behavior.
+32 tests covering keyword matching, priority ordering, pronoun reflection, preprocessing, round-robin cycling, fallback, memory storage/recall, parity error, French language loading, accent-insensitive matching, and ligature handling.
+
+## Adding a language
+
+1. Create `rules_{lang}.yaml` — keyword rules with decomposition/reassembly patterns
+2. Create `reflections_{lang}.yaml` — pronoun/verb reflection mappings
+3. Create `messages_{lang}.yaml` — UI strings (intro, greetings, prompt, goodbye, quit_words, crash)
+4. Add the language code to the CLI check in `Main.java`
 
 ## Extending the rules
 
-Edit `src/main/resources/rules.yaml` to add new rules:
+Edit `src/main/resources/rules_{lang}.yaml` to add new rules:
 
 ```yaml
 - keyword: "weather"
@@ -128,8 +168,8 @@ Edit `src/main/resources/rules.yaml` to add new rules:
         - "Tell me how{1} weather makes you feel."
 ```
 
-- `keyword` — substring matched against the preprocessed (lowercased) input
+- `keyword` — substring matched against the preprocessed input (accent-insensitive)
 - `priority` — higher wins; ties go to the first rule defined
 - `insult: true` — optional flag to count toward parity error
-- `decomposition` — Java regex; capture groups are referenced as `{1}`, `{2}`, ...
-- `reassemblies` — cycled round-robin; prefix with `@memory:` to store instead of respond
+- `decomposition` — Java regex, matched accent-insensitively; capture groups are referenced as `{1}`, `{2}`, ...
+- `reassemblies` — cycled round-robin; prefix with `@memory:` to store instead of respond; keep proper accents here

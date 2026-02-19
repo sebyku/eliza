@@ -138,7 +138,7 @@ rules:
 
   # --- "I am" / "I'm" ---
   - keyword: "i am"
-    priority: 5
+    priority: 2
     patterns:
       - decomposition: ".*i am (.*)"
         reassemblies:
@@ -148,7 +148,7 @@ rules:
           - "Why do you tell me you're {1}?"
 
   - keyword: "i'm"
-    priority: 5
+    priority: 2
     patterns:
       - decomposition: ".*i'm (.*)"
         reassemblies:

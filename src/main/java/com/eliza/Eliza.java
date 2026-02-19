@@ -3,8 +3,10 @@ package com.eliza;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +29,15 @@ public class Eliza {
     private final List<Rule> rules;
     private final Deque<String> memory;
     private final Map<String, String> reflections;
+    private final String language;
     private int insultCount;
 
     public Eliza() {
+        this("us");
+    }
+
+    public Eliza(String language) {
+        this.language = language;
         this.rules = new ArrayList<>();
         this.memory = new LinkedList<>();
         this.reflections = loadReflections();
@@ -50,7 +58,7 @@ public class Eliza {
         // Collect all matching rules, sorted by descending priority
         List<Rule> matchingRules = new ArrayList<>();
         for (Rule rule : rules) {
-            if (text.contains(rule.keyword())) {
+            if (text.contains(stripAccents(rule.keyword()))) {
                 matchingRules.add(rule);
             }
         }
@@ -84,7 +92,7 @@ public class Eliza {
 
     private String applyRule(Rule rule, String text) {
         for (Rule.PatternResponse pr : rule.patterns()) {
-            Pattern pattern = Pattern.compile(pr.decomposition(), Pattern.CASE_INSENSITIVE);
+            Pattern pattern = Pattern.compile(stripAccents(pr.decomposition()), Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(text);
             if (matcher.find()) {
                 String template = pr.nextReassembly();
@@ -146,11 +154,19 @@ public class Eliza {
         return sb.toString();
     }
 
+    static String stripAccents(String text) {
+        String result = text.replace("œ", "oe").replace("Œ", "OE")
+                .replace("æ", "ae").replace("Æ", "AE");
+        String normalized = Normalizer.normalize(result, Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
     private String preprocess(String input) {
-        return input.trim()
-                .replaceAll("[.!,;]+$", "")  // strip trailing punctuation
-                .replaceAll("\\s+", " ")      // normalize whitespace
-                .toLowerCase();
+        return stripAccents(
+                input.trim()
+                        .replaceAll("[.!,;]+$", "")  // strip trailing punctuation
+                        .replaceAll("\\s+", " ")      // normalize whitespace
+                        .toLowerCase());
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -159,24 +175,32 @@ public class Eliza {
 
     @SuppressWarnings("unchecked")
     private Map<String, String> loadReflections() {
+        String filename = "reflections_" + language + ".yaml";
         Yaml yaml = new Yaml();
-        try (InputStream in = getClass().getClassLoader().getResourceAsStream("reflections.yaml")) {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream(filename)) {
             if (in == null) {
-                throw new IllegalStateException("reflections.yaml not found on classpath");
+                throw new IllegalStateException(filename + " not found on classpath");
             }
             Map<String, Object> root = yaml.load(in);
-            return (Map<String, String>) root.get("reflections");
+            Map<String, String> raw = (Map<String, String>) root.get("reflections");
+            // Normalize keys to accent-stripped form so lookups on preprocessed text match
+            Map<String, String> normalized = new HashMap<>();
+            for (Map.Entry<String, String> entry : raw.entrySet()) {
+                normalized.put(stripAccents(entry.getKey()), entry.getValue());
+            }
+            return normalized;
         } catch (java.io.IOException e) {
-            throw new IllegalStateException("Failed to load reflections.yaml", e);
+            throw new IllegalStateException("Failed to load " + filename, e);
         }
     }
 
     @SuppressWarnings("unchecked")
     private void loadRules() {
+        String filename = "rules_" + language + ".yaml";
         Yaml yaml = new Yaml();
-        try (InputStream in = getClass().getClassLoader().getResourceAsStream("rules.yaml")) {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream(filename)) {
             if (in == null) {
-                throw new IllegalStateException("rules.yaml not found on classpath");
+                throw new IllegalStateException(filename + " not found on classpath");
             }
             Map<String, Object> root = yaml.load(in);
             List<Map<String, Object>> ruleList = (List<Map<String, Object>>) root.get("rules");
@@ -197,7 +221,7 @@ public class Eliza {
                 rules.add(new Rule(keyword, priority, insult, patternList));
             }
         } catch (java.io.IOException e) {
-            throw new IllegalStateException("Failed to load rules.yaml", e);
+            throw new IllegalStateException("Failed to load " + filename, e);
         }
     }
 }

@@ -1,0 +1,31 @@
+intro: |
+  ╔══════════════════════════════════════════════════════════════╗
+  ║                        E L I Z A                             ║
+  ║        Simulation d'un psychothérapeute rogérien             ║
+  ║     D'après le programme de Joseph Weizenbaum (1966)         ║
+  ║                                                              ║
+  ║  Tapez ce que vous voulez. Tapez "quitter" pour sortir.      ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+greetings:
+  - "Bonjour. Je suis ELIZA. Comment vous sentez-vous aujourd'hui ?"
+  - "Bonjour. Je suis ELIZA. Qu'est-ce qui vous préoccupe ?"
+  - "Bonjour, je suis ELIZA. Quel est votre nom ?"
+  - "Bonjour, je suis ELIZA. Quel est votre problème ?"
+  - "Bienvenue. Je suis ELIZA. Dites-moi votre nom."
+  - "Bienvenue. Je suis ELIZA. Dites-moi ce qui vous préoccupe."
+
+prompt: "Vous:  "
+
+goodbye: "Au revoir. Merci d'avoir parlé avec moi."
+
+quit_words:
+  - "quitter"
+  - "quit"
+  - "au revoir"
+
+crash:
+  - "*** SYSTÈME ARRÊTÉ ***"
+  - "*** VIDAGE MÉMOIRE : 0x0000 - 0xFFFF ***"
+  - "*** EXCEPTION FATALE DANS LE MODULE ELIZA.EXE ***"
+  - "*** REDÉMARRAGE REQUIS ***"
