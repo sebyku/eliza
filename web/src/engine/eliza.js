@@ -9,7 +9,7 @@ const PARITY_ERROR = 'PARITY ERROR!!! PARITY ERROR!!! SESSION TERMINATED.';
  * Async factory that creates an ELIZA engine for the given language.
  * Fetches and parses the rules and reflections YAML files.
  *
- * @param {string} language - "us" or "fr"
+ * @param {string} language - "us", "fr", "de", or "es"
  * @returns {Promise<object>} engine with respond(), hasParityError(), reset()
  */
 export async function createEliza(language) {

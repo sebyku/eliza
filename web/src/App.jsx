@@ -5,7 +5,8 @@ import './styles/app.css';
 
 function detectLanguage() {
   const lang = (navigator.language || '').split('-')[0].toLowerCase();
-  return lang === 'fr' ? 'fr' : 'us';
+  const supported = { fr: 'fr', de: 'de', es: 'es' };
+  return supported[lang] || 'us';
 }
 
 export default function App() {

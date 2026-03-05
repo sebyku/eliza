@@ -283,6 +283,114 @@ class ElizaTest {
                 "Should recall stored memory about mother, got: " + memoryResponse);
     }
 
+    // ── German language ──────────────────────────────────────
+
+    @Test
+    void germanElizaLoadsWithoutError() {
+        Eliza deEliza = new Eliza("de");
+        String response = deEliza.respond("hallo");
+        assertNotNull(response);
+        assertFalse(response.isEmpty(), "German Eliza should respond to 'hallo'");
+    }
+
+    @Test
+    void germanElizaFallback() {
+        Eliza deEliza = new Eliza("de");
+        String response = deEliza.respond("xyzzy plugh");
+        assertNotNull(response, "German Eliza should have a fallback response");
+        assertFalse(response.isEmpty());
+    }
+
+    @Test
+    void germanElizaMatchesWithoutUmlauts() {
+        Eliza deEliza = new Eliza("de");
+        // "traurig" has no umlauts but "müde" does — test "mude" matches "müde" keyword
+        String response = deEliza.respond("ich bin mude");
+        assertNotNull(response);
+        assertFalse(response.isEmpty(), "Should match German keyword even without umlauts");
+    }
+
+    @Test
+    void germanElizaMatchesWithUmlauts() {
+        Eliza deEliza = new Eliza("de");
+        String response = deEliza.respond("ich bin müde");
+        assertNotNull(response);
+        assertFalse(response.isEmpty(), "Should match German keyword with umlauts");
+    }
+
+    @Test
+    void germanElizaRespondToMutter() {
+        Eliza deEliza = new Eliza("de");
+        String response = deEliza.respond("meine mutter ist streng");
+        assertTrue(response.toLowerCase().contains("mutter"),
+                "Should respond about Mutter, got: " + response);
+    }
+
+    @Test
+    void germanElizaParityError() {
+        Eliza deEliza = new Eliza("de");
+        deEliza.respond("du bist dumm");
+        deEliza.respond("du idiot");
+        deEliza.respond("halt die klappe");
+        String response = deEliza.respond("du trottel");
+        assertTrue(deEliza.hasParityError(), "German Eliza should have parity error after 4 insults");
+        assertEquals(Eliza.PARITY_ERROR, response);
+    }
+
+    // ── Spanish language ─────────────────────────────────────
+
+    @Test
+    void spanishElizaLoadsWithoutError() {
+        Eliza esEliza = new Eliza("es");
+        String response = esEliza.respond("hola");
+        assertNotNull(response);
+        assertFalse(response.isEmpty(), "Spanish Eliza should respond to 'hola'");
+    }
+
+    @Test
+    void spanishElizaFallback() {
+        Eliza esEliza = new Eliza("es");
+        String response = esEliza.respond("xyzzy plugh");
+        assertNotNull(response, "Spanish Eliza should have a fallback response");
+        assertFalse(response.isEmpty());
+    }
+
+    @Test
+    void spanishElizaMatchesWithoutAccents() {
+        Eliza esEliza = new Eliza("es");
+        // "deprimido" without accent should match
+        String response = esEliza.respond("estoy deprimido");
+        assertNotNull(response);
+        assertFalse(response.isEmpty(), "Should match Spanish keyword even without accents");
+    }
+
+    @Test
+    void spanishElizaMatchesWithAccents() {
+        Eliza esEliza = new Eliza("es");
+        String response = esEliza.respond("estoy deprimído");
+        assertNotNull(response);
+        assertFalse(response.isEmpty(), "Should match Spanish keyword with accents");
+    }
+
+    @Test
+    void spanishElizaRespondToMadre() {
+        Eliza esEliza = new Eliza("es");
+        String response = esEliza.respond("mi madre es muy estricta");
+        assertTrue(response.toLowerCase().contains("madre"),
+                "Should respond about madre, got: " + response);
+    }
+
+    @Test
+    void spanishElizaParityError() {
+        Eliza esEliza = new Eliza("es");
+        esEliza.respond("eres estupido");
+        esEliza.respond("eres un idiota");
+        esEliza.respond("callate");
+        String response = esEliza.respond("eres un tonto");
+        assertTrue(esEliza.hasParityError(), "Spanish Eliza should have parity error after 4 insults");
+        assertEquals(Eliza.PARITY_ERROR, response);
+    }
+
     // ── French language ──────────────────────────────────────
 
     @Test
@@ -327,6 +435,21 @@ class ElizaTest {
         assertEquals("soeur", Eliza.stripAccents("sœur"));
         assertEquals("SOEUR", Eliza.stripAccents("SŒUR"));
         assertEquals("aegis", Eliza.stripAccents("ægis"));
+        // German ß and umlauts
+        assertEquals("u", Eliza.stripAccents("ü"));
+        assertEquals("o", Eliza.stripAccents("ö"));
+        assertEquals("a", Eliza.stripAccents("ä"));
+        assertEquals("ss", Eliza.stripAccents("ß"), "ß should be stripped to ss");
+        assertEquals("strasse", Eliza.stripAccents("straße"), "straße should become strasse");
+        assertEquals("mude", Eliza.stripAccents("müde"));
+        // Spanish ñ and accented vowels
+        assertEquals("n", Eliza.stripAccents("ñ"), "ñ should be stripped to n");
+        assertEquals("espanol", Eliza.stripAccents("español"));
+        assertEquals("a", Eliza.stripAccents("á"));
+        assertEquals("e", Eliza.stripAccents("é"));
+        assertEquals("i", Eliza.stripAccents("í"));
+        assertEquals("o", Eliza.stripAccents("ó"));
+        assertEquals("u", Eliza.stripAccents("ú"));
     }
 
     @Test

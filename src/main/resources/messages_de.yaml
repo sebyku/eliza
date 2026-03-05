@@ -1,0 +1,33 @@
+intro: |
+  ╔══════════════════════════════════════════════════════════════╗
+  ║                        E L I Z A                             ║
+  ║      Simulation einer rogerianischen Psychotherapeutin       ║
+  ║    Basierend auf Joseph Weizenbaums Programm von 1966        ║
+  ║                                                              ║
+  ║  Schreiben Sie etwas. Tippen Sie "ende" zum Beenden.         ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+greetings:
+  - "Hallo. Ich bin ELIZA. Wie fühlen Sie sich heute?"
+  - "Hallo. Ich bin ELIZA. Was beschäftigt Sie?"
+  - "Hallo, ich bin ELIZA. Wie ist Ihr Name?"
+  - "Hallo, ich bin ELIZA. Was ist Ihr Problem?"
+  - "Willkommen. Ich bin ELIZA. Bitte nennen Sie mir Ihren Namen."
+  - "Willkommen. Ich bin ELIZA. Erzählen Sie mir, was Sie beschäftigt."
+
+prompt: "Sie:   "
+
+goodbye: "Auf Wiedersehen. Danke für das Gespräch."
+
+quit_words:
+  - "ende"
+  - "quit"
+  - "tschüss"
+
+reboot: "NEUSTART"
+
+crash:
+  - "*** SYSTEM ANGEHALTEN ***"
+  - "*** SPEICHERAUSZUG: 0x0000 - 0xFFFF ***"
+  - "*** FATALER FEHLER IM MODUL ELIZA.EXE ***"
+  - "*** NEUSTART ERFORDERLICH ***"

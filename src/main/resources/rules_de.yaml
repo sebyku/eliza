@@ -1,0 +1,1685 @@
+rules:
+
+  # --- Grüße ---
+  - keyword: "hallo"
+    priority: 3
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Hallo. Wie fühlen Sie sich heute?"
+          - "Hallo. Was beschäftigt Sie?"
+          - "Hallo. Erzählen Sie mir, was Sie bedrückt."
+
+  - keyword: "guten tag"
+    priority: 3
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Guten Tag. Was führt Sie zu mir?"
+          - "Guten Tag. Wie kann ich Ihnen helfen?"
+          - "Guten Tag. Erzählen Sie mir, was Sie belastet."
+
+  # --- Entschuldigungen ---
+  - keyword: "entschuldigung"
+    priority: 1
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Sie brauchen sich nicht zu entschuldigen."
+          - "Entschuldigungen sind nicht nötig."
+          - "Welche Gefühle löst das Entschuldigen bei Ihnen aus?"
+
+  - keyword: "tut mir leid"
+    priority: 1
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Bitte entschuldigen Sie sich nicht."
+          - "Das muss Ihnen nicht leidtun."
+          - "Warum tut es Ihnen leid?"
+
+  # --- "Ich erinnere mich" ---
+  - keyword: "ich erinnere mich"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich erinnere mich (.*)"
+        reassemblies:
+          - "Denken Sie oft an {1}?"
+          - "Was fällt Ihnen noch ein, wenn Sie an {1} denken?"
+          - "Was an {1} ist Ihnen jetzt wichtig?"
+
+  # --- "Erinnern Sie sich" ---
+  - keyword: "erinnern sie sich"
+    priority: 5
+    patterns:
+      - decomposition: ".*erinnern sie sich (.*)"
+        reassemblies:
+          - "Dachten Sie, ich würde {1} vergessen?"
+          - "Warum sollte ich mich gerade jetzt an {1} erinnern?"
+          - "Was ist mit {1}?"
+
+  # --- "Ich vergesse" ---
+  - keyword: "ich vergesse"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich vergesse (.*)"
+        reassemblies:
+          - "Können Sie sich vorstellen, warum Sie {1} vergessen?"
+          - "Warum glauben Sie, dass Sie {1} vergessen haben?"
+          - "Wie fühlen Sie sich dabei, {1} zu vergessen?"
+
+  # --- "Wenn" / "Falls" ---
+  - keyword: "wenn"
+    priority: 3
+    patterns:
+      - decomposition: ".*wenn (.*)"
+        reassemblies:
+          - "Glauben Sie wirklich, dass es wahrscheinlich ist, dass {1}?"
+          - "Wünschen Sie sich, dass {1}?"
+          - "Was denken Sie über {1}?"
+          - "Wirklich, wenn {1}?"
+
+  - keyword: "falls"
+    priority: 3
+    patterns:
+      - decomposition: ".*falls (.*)"
+        reassemblies:
+          - "Halten Sie es für wahrscheinlich, dass {1}?"
+          - "Was wäre, falls {1}?"
+          - "Was denken Sie darüber?"
+
+  # --- Träume ---
+  - keyword: "traum"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich traume(?:te)? (.*)"
+        reassemblies:
+          - "Was bedeutet dieser Traum für Sie?"
+          - "Träumen Sie oft?"
+          - "Welche Personen kommen in Ihren Träumen vor?"
+          - "Wie hängt dieser Traum mit Ihrem Problem zusammen?"
+          - "@memory:Sie haben vorhin einen Traum erwähnt. Möchten Sie mehr darüber sprechen?"
+      - decomposition: ".*traum(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Traum."
+          - "Was bedeuten Träume für Sie?"
+          - "Träumen Sie häufig?"
+          - "@memory:Sie haben einen Traum erwähnt. Lassen Sie uns darauf zurückkommen."
+
+  # --- Familie ---
+  - keyword: "mutter"
+    priority: 5
+    patterns:
+      - decomposition: ".*mutter(.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihre Mutter."
+          - "Wie war Ihre Beziehung zu Ihrer Mutter?"
+          - "Wie fühlen Sie sich bei Ihrer Mutter?"
+          - "Hat Ihre Beziehung zu Ihrer Mutter mit Ihren heutigen Gefühlen zu tun?"
+          - "@memory:Sie haben vorhin Ihre Mutter erwähnt. Können wir darauf zurückkommen?"
+
+  - keyword: "vater"
+    priority: 5
+    patterns:
+      - decomposition: ".*vater(.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihren Vater."
+          - "Wie hat Ihr Vater Sie geprägt?"
+          - "Hat Ihre Beziehung zu Ihrem Vater mit Ihren heutigen Gefühlen zu tun?"
+          - "Was kommt Ihnen in den Sinn, wenn Sie an Ihren Vater denken?"
+          - "@memory:Sie haben vorhin Ihren Vater erwähnt. Erzählen Sie mir mehr darüber."
+
+  - keyword: "familie"
+    priority: 4
+    patterns:
+      - decomposition: ".*familie(.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihre Familie."
+          - "Wie fühlen Sie sich bei Ihrer Familie?"
+          - "Wem in Ihrer Familie stehen Sie am nächsten?"
+          - "@memory:Lassen Sie uns auf Ihre Familie zurückkommen."
+
+  # --- "Ich will" / "Ich möchte" ---
+  - keyword: "ich will"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich will (.*)"
+        reassemblies:
+          - "Was würde es für Sie bedeuten, wenn Sie {1} bekämen?"
+          - "Warum wollen Sie {1}?"
+          - "Angenommen, Sie bekämen {1} bald — was dann?"
+          - "Was wäre, wenn Sie {1} nie bekämen?"
+          - "@memory:Sie sagten vorhin, Sie wollten {1}. Fühlen Sie sich immer noch so?"
+
+  - keyword: "ich mochte"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich mochte (.*)"
+        reassemblies:
+          - "Was würde es für Sie bedeuten, {1} zu bekommen?"
+          - "Warum möchten Sie {1}?"
+          - "Was wäre, wenn Sie {1} bekommen würden?"
+          - "Was hindert Sie daran, {1} zu erreichen?"
+
+  # --- "Ich brauche" ---
+  - keyword: "ich brauche"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich brauche (.*)"
+        reassemblies:
+          - "Warum brauchen Sie {1}?"
+          - "Würde es Ihnen wirklich helfen, {1} zu bekommen?"
+          - "Sind Sie sicher, dass Sie {1} brauchen?"
+
+  # --- "Ich bin" ---
+  - keyword: "ich bin"
+    priority: 2
+    patterns:
+      - decomposition: ".*ich bin (.*)"
+        reassemblies:
+          - "Wie lange sind Sie schon {1}?"
+          - "Wie fühlen Sie sich dabei, {1} zu sein?"
+          - "Gefällt es Ihnen, {1} zu sein?"
+          - "Warum erzählen Sie mir, dass Sie {1} sind?"
+
+  # --- "Ich fühle" ---
+  - keyword: "ich fuhle"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich fuhle mich (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr darüber, warum Sie sich {1} fühlen."
+          - "Fühlen Sie sich oft {1}?"
+          - "Was löst dieses Gefühl aus, {1} zu sein?"
+          - "Genießen Sie es, sich {1} zu fühlen?"
+          - "@memory:Sie sagten, Sie fühlten sich {1}. Hat sich daran etwas geändert?"
+      - decomposition: ".*ich fuhle (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über dieses Gefühl."
+          - "Wie lange fühlen Sie das schon?"
+          - "Was glauben Sie, woher dieses Gefühl kommt?"
+
+  # --- "Ich denke" / "Ich glaube" ---
+  - keyword: "ich denke"
+    priority: 3
+    patterns:
+      - decomposition: ".*ich denke (.*)"
+        reassemblies:
+          - "Zweifeln Sie an {1}?"
+          - "Sie denken wirklich {1}?"
+          - "Aber Sie sind sich nicht sicher, ob {1}?"
+          - "Was lässt Sie denken, dass {1}?"
+
+  - keyword: "ich glaube"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich glaube (.*)"
+        reassemblies:
+          - "Warum glauben Sie {1}?"
+          - "Haben Sie Zweifel an {1}?"
+          - "Was hat Sie dazu gebracht, {1} zu glauben?"
+          - "Wie stark glauben Sie {1}?"
+
+  # --- "Ich kann nicht" ---
+  - keyword: "ich kann nicht"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich kann nicht (.*)"
+        reassemblies:
+          - "Haben Sie es versucht?"
+          - "Was hindert Sie daran, {1} zu können?"
+          - "Woher wissen Sie, dass Sie nicht {1} können?"
+          - "Vielleicht könnten Sie {1} jetzt."
+
+  # --- "Ich mache nicht" / "Ich tue nicht" ---
+  - keyword: "ich mache nicht"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich mache nicht (.*)"
+        reassemblies:
+          - "Warum machen Sie nicht {1}?"
+          - "Wünschen Sie sich, Sie könnten {1}?"
+          - "Beunruhigt Sie das?"
+
+  - keyword: "ich tue nicht"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich tue nicht (.*)"
+        reassemblies:
+          - "Warum tun Sie nicht {1}?"
+          - "Möchten Sie {1} tun?"
+          - "Was hält Sie davon ab?"
+
+  # --- Fragen über ELIZA ---
+  - keyword: "sind sie"
+    priority: 4
+    patterns:
+      - decomposition: ".*sind sie (.*)"
+        reassemblies:
+          - "Warum interessiert es Sie, ob ich {1} bin?"
+          - "Wäre es Ihnen lieber, wenn ich nicht {1} wäre?"
+          - "Vielleicht bin ich {1} in Ihrer Fantasie."
+          - "Denken Sie manchmal, dass ich {1} bin?"
+
+  - keyword: "wer sind sie"
+    priority: 5
+    patterns:
+      - decomposition: ".*wer sind sie(.*)"
+        reassemblies:
+          - "Ich bin Eliza, ein Computerprogramm. Wie kann ich Ihnen helfen?"
+          - "Ich bin ein Programm, das mit Ihnen sprechen soll. Was ist Ihr Problem?"
+          - "Das ist nicht wichtig. Lassen Sie uns über Sie sprechen."
+
+  # --- "Sie sind" ---
+  - keyword: "sie sind"
+    priority: 4
+    patterns:
+      - decomposition: ".*sie sind (.*)"
+        reassemblies:
+          - "Was bringt Sie auf den Gedanken, dass ich {1} bin?"
+          - "Gefällt es Ihnen zu denken, dass ich {1} bin?"
+          - "Vielleicht wünschen Sie sich, dass ich {1} wäre."
+          - "Vielleicht sprechen Sie eigentlich über sich selbst."
+
+  # --- "Warum"-Fragen ---
+  - keyword: "warum nicht"
+    priority: 5
+    patterns:
+      - decomposition: ".*warum nicht (.*)"
+        reassemblies:
+          - "Glauben Sie wirklich, dass ich {1} sollte?"
+          - "Möchten Sie, dass ich {1}?"
+          - "Wollen Sie mir wirklich raten, {1} zu tun?"
+
+  - keyword: "warum kann ich nicht"
+    priority: 5
+    patterns:
+      - decomposition: ".*warum kann ich nicht (.*)"
+        reassemblies:
+          - "Glauben Sie, dass Sie {1} können sollten?"
+          - "Wollen Sie {1} können?"
+          - "Können Sie mir sagen, warum Sie nicht {1} können?"
+
+  - keyword: "warum"
+    priority: 2
+    patterns:
+      - decomposition: ".*warum (.*)"
+        reassemblies:
+          - "Warum fragen Sie das?"
+          - "Würde eine Antwort darauf Ihnen helfen?"
+          - "Was denken Sie selbst?"
+
+  # --- "Weil" ---
+  - keyword: "weil"
+    priority: 2
+    patterns:
+      - decomposition: ".*weil (.*)"
+        reassemblies:
+          - "Ist das der wahre Grund?"
+          - "Welche anderen Gründe fallen Ihnen ein?"
+          - "Erklärt das irgendetwas anderes?"
+          - "Was noch, außer dass {1}?"
+
+  # --- Absolute: jeder, niemand, immer, nie ---
+  - keyword: "jeder"
+    priority: 2
+    patterns:
+      - decomposition: ".*jeder (.*)"
+        reassemblies:
+          - "Wirklich jeder {1}?"
+          - "Können Sie an jemand Bestimmten denken?"
+          - "Wer zum Beispiel?"
+
+  - keyword: "niemand"
+    priority: 2
+    patterns:
+      - decomposition: ".*niemand (.*)"
+        reassemblies:
+          - "Sind Sie sicher, dass niemand {1}?"
+          - "Bestimmt gibt es jemanden, der {1}."
+          - "Was würde es bedeuten, wenn doch jemand {1}?"
+
+  - keyword: "immer"
+    priority: 2
+    patterns:
+      - decomposition: ".*immer (.*)"
+        reassemblies:
+          - "Können Sie mir ein konkretes Beispiel nennen?"
+          - "Wann genau?"
+          - "Wirklich immer?"
+          - "An welches Ereignis denken Sie?"
+
+  - keyword: "nie"
+    priority: 2
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Nie?"
+          - "Sind Sie sich sicher?"
+          - "Sie sagen nie — ruft das starke Gefühle hervor?"
+
+  # --- Unsicherheit ---
+  - keyword: "vielleicht"
+    priority: 1
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Sie scheinen sich nicht ganz sicher zu sein."
+          - "Woher kommt der unsichere Ton?"
+          - "Können Sie nicht bestimmter sein?"
+          - "Sie sind sich nicht sicher?"
+
+  # --- Ja / Nein ---
+  - keyword: "ja"
+    priority: 1
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Sie scheinen sich ziemlich sicher zu sein."
+          - "Verstehe. Erzählen Sie mir mehr."
+          - "Ich verstehe."
+
+  - keyword: "nein"
+    priority: 1
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Warum nicht?"
+          - "Sie sind ziemlich negativ eingestellt."
+          - "Warum sagen Sie nein?"
+
+  # --- Computer ---
+  - keyword: "computer"
+    priority: 3
+    patterns:
+      - decomposition: ".*computer(.*)"
+        reassemblies:
+          - "Stören Sie sich daran, mit einem Computer zu sprechen?"
+          - "Fühlen Sie sich von Computern bedroht?"
+          - "Was beunruhigt Sie an Computern?"
+          - "Computer können manchmal hilfreich sein. Was denken Sie?"
+
+  # --- Emotionen ---
+  - keyword: "traurig"
+    priority: 4
+    patterns:
+      - decomposition: ".*traurig (.*)"
+        reassemblies:
+          - "Was an {1} macht Sie traurig?"
+          - "Wie lange sind Sie schon traurig wegen {1}?"
+          - "@memory:Sie sagten, Sie seien traurig wegen {1}. Hat sich etwas geändert?"
+      - decomposition: ".*traurig(.*)"
+        reassemblies:
+          - "Es tut mir leid zu hören, dass Sie traurig sind."
+          - "Was glauben Sie, macht Sie traurig?"
+          - "Erzählen Sie mir, was Sie bedrückt."
+          - "@memory:Sie sagten, Sie seien traurig. Möchten Sie mehr darüber sprechen?"
+
+  - keyword: "unglucklich"
+    priority: 4
+    patterns:
+      - decomposition: ".*unglucklich(.*)"
+        reassemblies:
+          - "Was macht Sie unglücklich?"
+          - "Sind Sie oft unglücklich?"
+          - "Was könnte Sie glücklicher machen?"
+          - "@memory:Sie haben erwähnt, dass Sie unglücklich sind. Wie geht es Ihnen jetzt?"
+
+  - keyword: "deprimiert"
+    priority: 4
+    patterns:
+      - decomposition: ".*deprimiert(.*)"
+        reassemblies:
+          - "Es tut mir leid zu hören, dass Sie deprimiert sind."
+          - "Glauben Sie, dass dieses Gespräch Ihnen helfen kann?"
+          - "Was glauben Sie, verursacht Ihre Depression?"
+          - "@memory:Sie sagten, Sie seien deprimiert. Hat sich inzwischen etwas verändert?"
+
+  - keyword: "glucklich"
+    priority: 4
+    patterns:
+      - decomposition: ".*glucklich(.*)"
+        reassemblies:
+          - "Was macht Sie glücklich?"
+          - "Sind Sie wirklich glücklich?"
+          - "Hängt Ihr Glücklichsein mit etwas anderem in Ihrem Leben zusammen?"
+
+  - keyword: "angst"
+    priority: 4
+    patterns:
+      - decomposition: ".*angst (.*)"
+        reassemblies:
+          - "Was an {1} macht Ihnen Angst?"
+          - "Wie lange haben Sie schon Angst vor {1}?"
+          - "Wovor haben Sie noch Angst?"
+          - "@memory:Sie haben erwähnt, dass Sie Angst vor {1} haben. Belastet Sie das noch?"
+      - decomposition: ".*angst(.*)"
+        reassemblies:
+          - "Wovor haben Sie Angst?"
+          - "Wie beeinflusst die Angst Ihr Leben?"
+          - "Erzählen Sie mir mehr über Ihre Angst."
+
+  - keyword: "furcht"
+    priority: 4
+    patterns:
+      - decomposition: ".*furcht (.*)"
+        reassemblies:
+          - "Was fürchten Sie an {1}?"
+          - "Wie wirkt sich diese Furcht auf Ihr Leben aus?"
+      - decomposition: ".*furcht(.*)"
+        reassemblies:
+          - "Wovor fürchten Sie sich?"
+          - "Seit wann haben Sie diese Furcht?"
+          - "Erzählen Sie mir mehr über Ihre Furcht."
+
+  # --- Freund ---
+  - keyword: "freund"
+    priority: 3
+    patterns:
+      - decomposition: ".*freund(.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihre Freunde."
+          - "Woran denken Sie, wenn Sie an einen Freund denken?"
+          - "Warum erzählen Sie mir nicht von einem Kindheitsfreund?"
+
+  # --- "Mein" / "Meine" ---
+  - keyword: "mein"
+    priority: 2
+    patterns:
+      - decomposition: ".*mein(?:e|em|en|er|es)? (.*)"
+        reassemblies:
+          - "Warum beschäftigt Sie {1}?"
+          - "Ist {1} wichtig für Sie?"
+          - "Erzählen Sie mir mehr über {1}."
+          - "Was bedeutet {1} für Sie?"
+
+  # --- Problem / Hilfe ---
+  - keyword: "problem"
+    priority: 3
+    patterns:
+      - decomposition: ".*problem (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihr Problem mit {1}."
+          - "Wie lange haben Sie schon dieses Problem mit {1}?"
+          - "Glauben Sie, dass Ihr Problem mit {1} lösbar ist?"
+      - decomposition: ".*problem(.*)"
+        reassemblies:
+          - "Was ist Ihr Problem?"
+          - "Erzählen Sie mir mehr über Ihr Problem."
+          - "Wie lange belastet Sie dieses Problem schon?"
+
+  - keyword: "hilfe"
+    priority: 3
+    patterns:
+      - decomposition: ".*hilfe(.*)"
+        reassemblies:
+          - "Wobei brauchen Sie Hilfe?"
+          - "Warum bitten Sie um Hilfe?"
+          - "Was für eine Hilfe suchen Sie?"
+          - "Glauben Sie, dass ich Ihnen helfen kann?"
+
+  # --- Arbeit / Beruf ---
+  - keyword: "arbeit"
+    priority: 3
+    patterns:
+      - decomposition: ".*arbeit (.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Arbeit mit {1}."
+          - "Wie fühlen Sie sich bei Ihrer Arbeit mit {1}?"
+          - "Verursacht {1} Ihnen Stress bei der Arbeit?"
+      - decomposition: ".*arbeit(.*)"
+        reassemblies:
+          - "Gefällt Ihnen Ihre Arbeit?"
+          - "Erzählen Sie mir von Ihrer Arbeitssituation."
+          - "Löst Ihre Arbeit diese Gefühle bei Ihnen aus?"
+
+  - keyword: "beruf"
+    priority: 3
+    patterns:
+      - decomposition: ".*beruf(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Beruf."
+          - "Gefällt Ihnen Ihr Beruf?"
+          - "Verursacht Ihr Beruf Ihnen Stress?"
+          - "Was wäre Ihr idealer Beruf?"
+
+  - keyword: "chef"
+    priority: 4
+    patterns:
+      - decomposition: ".*chef (.*)"
+        reassemblies:
+          - "Was tut Ihr Chef, das {1}?"
+          - "Wie fühlen Sie sich bei Ihrem Chef?"
+          - "Erzählen Sie mir mehr über Ihre Beziehung zu Ihrem Chef."
+      - decomposition: ".*chef(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Chef."
+          - "Kommen Sie gut mit Ihrem Chef aus?"
+          - "Behandelt Ihr Chef Sie fair?"
+
+  # --- Geld ---
+  - keyword: "geld"
+    priority: 3
+    patterns:
+      - decomposition: ".*geld(.*)"
+        reassemblies:
+          - "Warum beschäftigt Sie Geld?"
+          - "Verursacht Geld Ihnen Stress?"
+          - "Was würden Sie tun, wenn Geld kein Problem wäre?"
+          - "Geld ist nicht alles. Was belastet Sie sonst noch?"
+
+  # --- Liebe / Hass ---
+  - keyword: "liebe"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich liebe (.*)"
+        reassemblies:
+          - "Erzählen Sie mir, warum Sie {1} lieben."
+          - "Liebt {1} Sie auch?"
+          - "Wie lange lieben Sie schon {1}?"
+          - "@memory:Sie sagten, Sie liebten {1}. Erzählen Sie mir mehr darüber."
+      - decomposition: ".*liebe(.*)"
+        reassemblies:
+          - "Ist Liebe ein wichtiges Thema für Sie?"
+          - "Was bedeutet Liebe für Sie?"
+          - "Erzählen Sie mir mehr über die Liebe in Ihrem Leben."
+
+  - keyword: "hass"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich hasse (.*)"
+        reassemblies:
+          - "Warum hassen Sie {1}?"
+          - "Was hat {1} getan, das diesen Hass auslöst?"
+          - "Hass ist ein starkes Gefühl. Erzählen Sie mir mehr."
+          - "@memory:Sie sagten, Sie hassten {1}. Beschäftigt Sie das noch?"
+      - decomposition: ".*hass(.*)"
+        reassemblies:
+          - "Ist Hass ein Thema in Ihrem Leben?"
+          - "Erzählen Sie mir mehr über diesen Hass."
+          - "Woher kommt dieser Hass?"
+
+  # --- Ehe / Scheidung ---
+  - keyword: "verheiratet"
+    priority: 4
+    patterns:
+      - decomposition: ".*verheiratet(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Ehe."
+          - "Wie läuft Ihre Ehe?"
+          - "Was bedeutet es für Sie, verheiratet zu sein?"
+          - "@memory:Sie haben Ihre Ehe erwähnt. Möchten Sie mehr darüber sprechen?"
+
+  - keyword: "scheidung"
+    priority: 5
+    patterns:
+      - decomposition: ".*scheidung(.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über die Scheidung."
+          - "Wie fühlen Sie sich bei dem Thema Scheidung?"
+          - "Wie hat die Scheidung Ihr Leben beeinflusst?"
+          - "@memory:Sie haben die Scheidung erwähnt. Wie geht es Ihnen damit?"
+
+  # --- Einsamkeit ---
+  - keyword: "einsam"
+    priority: 4
+    patterns:
+      - decomposition: ".*einsam(.*)"
+        reassemblies:
+          - "Warum fühlen Sie sich einsam?"
+          - "Seit wann fühlen Sie sich einsam?"
+          - "Sind Sie oft einsam, oder ist das neu?"
+          - "Was würde Ihnen gegen die Einsamkeit helfen?"
+          - "@memory:Sie sagten, Sie fühlten sich einsam. Möchten Sie mehr darüber reden?"
+
+  - keyword: "allein"
+    priority: 3
+    patterns:
+      - decomposition: ".*allein(.*)"
+        reassemblies:
+          - "Genießen Sie es, allein zu sein, oder stört es Sie?"
+          - "Alleinsein und Einsamkeit sind verschiedene Dinge. Was meinen Sie?"
+          - "Warum sind Sie allein?"
+          - "Erzählen Sie mir, wie es sich anfühlt, allein zu sein."
+
+  # --- Wut ---
+  - keyword: "wutend"
+    priority: 4
+    patterns:
+      - decomposition: ".*wutend (.*)"
+        reassemblies:
+          - "Warum macht {1} Sie wütend?"
+          - "Wie lange sind Sie schon wütend wegen {1}?"
+          - "Was würde Sie weniger wütend auf {1} machen?"
+      - decomposition: ".*wutend(.*)"
+        reassemblies:
+          - "Warum sind Sie wütend?"
+          - "Wut ist ein starkes Gefühl. Erzählen Sie mir, was sie ausgelöst hat."
+          - "Was tun Sie, wenn Sie wütend sind?"
+          - "Hilft es Ihnen, wütend zu sein, oder schadet es Ihnen?"
+
+  - keyword: "sauer"
+    priority: 3
+    patterns:
+      - decomposition: ".*sauer (.*)"
+        reassemblies:
+          - "Was an {1} macht Sie sauer?"
+          - "Wie beeinflusst es Sie, sauer auf {1} zu sein?"
+      - decomposition: ".*sauer(.*)"
+        reassemblies:
+          - "Warum sind Sie sauer?"
+          - "Erzählen Sie mir, was Sie sauer macht."
+          - "Sauer sein löst nichts. Was ist das eigentliche Problem?"
+
+  # --- Stress / Angst ---
+  - keyword: "stress"
+    priority: 4
+    patterns:
+      - decomposition: ".*stress (.*)"
+        reassemblies:
+          - "Was an {1} verursacht Ihnen Stress?"
+          - "Wie gehen Sie mit dem Stress wegen {1} um?"
+      - decomposition: ".*stress(.*)"
+        reassemblies:
+          - "Was verursacht Ihren Stress?"
+          - "Wie äußert sich Ihr Stress?"
+          - "Was tun Sie, um mit Stress umzugehen?"
+          - "Wie lange stehen Sie schon unter Stress?"
+
+  - keyword: "angstlich"
+    priority: 4
+    patterns:
+      - decomposition: ".*angstlich(.*)"
+        reassemblies:
+          - "Was macht Sie ängstlich?"
+          - "Sind Sie oft ängstlich?"
+          - "Wie äußert sich Ihre Ängstlichkeit?"
+          - "Wann haben Sie angefangen, ängstlich zu sein?"
+
+  - keyword: "besorgt"
+    priority: 3
+    patterns:
+      - decomposition: ".*besorgt (.*)"
+        reassemblies:
+          - "Warum sind Sie besorgt wegen {1}?"
+          - "Wie wahrscheinlich ist es, dass {1} wirklich passiert?"
+      - decomposition: ".*besorgt(.*)"
+        reassemblies:
+          - "Worüber sind Sie besorgt?"
+          - "Erzählen Sie mir mehr über Ihre Sorgen."
+          - "Was ist das Schlimmste, das passieren könnte?"
+
+  # --- Schlaf / Müdigkeit ---
+  - keyword: "schlaf"
+    priority: 3
+    patterns:
+      - decomposition: ".*schlaf (.*)"
+        reassemblies:
+          - "Wie beeinflusst {1} Ihren Schlaf?"
+          - "Wie lange haben Sie schon Schlafprobleme wegen {1}?"
+      - decomposition: ".*schlaf(.*)"
+        reassemblies:
+          - "Wie schlafen Sie?"
+          - "Haben Sie Probleme mit dem Einschlafen?"
+          - "Was geht Ihnen durch den Kopf, wenn Sie versuchen zu schlafen?"
+          - "Schlafprobleme können auf tiefere Sorgen hinweisen. Erzählen Sie mir mehr."
+
+  - keyword: "mude"
+    priority: 3
+    patterns:
+      - decomposition: ".*mude (.*)"
+        reassemblies:
+          - "Warum macht {1} Sie müde?"
+          - "Sind Sie körperlich müde oder seelisch erschöpft wegen {1}?"
+      - decomposition: ".*mude(.*)"
+        reassemblies:
+          - "Warum sind Sie müde?"
+          - "Schlafen Sie genug?"
+          - "Ist Ihre Müdigkeit körperlich oder seelisch?"
+          - "Was glauben Sie, macht Sie müde?"
+
+  # --- Gesundheit ---
+  - keyword: "krank"
+    priority: 4
+    patterns:
+      - decomposition: ".*krank (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr darüber, krank zu sein wegen {1}."
+          - "Wie lange sind Sie schon krank wegen {1}?"
+      - decomposition: ".*krank(.*)"
+        reassemblies:
+          - "Es tut mir leid, dass es Ihnen nicht gut geht."
+          - "Waren Sie beim Arzt?"
+          - "Erzählen Sie mir von Ihren Beschwerden."
+          - "Wie lange fühlen Sie sich schon krank?"
+
+  - keyword: "schmerz"
+    priority: 4
+    patterns:
+      - decomposition: ".*schmerz (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihre Schmerzen wegen {1}."
+          - "Wie lange haben Sie schon Schmerzen wegen {1}?"
+      - decomposition: ".*schmerz(.*)"
+        reassemblies:
+          - "Was verursacht Ihre Schmerzen?"
+          - "Sind die Schmerzen körperlich oder seelisch?"
+          - "Erzählen Sie mir mehr über Ihre Schmerzen."
+
+  # --- Leben / Tod ---
+  - keyword: "leben"
+    priority: 3
+    patterns:
+      - decomposition: ".*leben (.*)"
+        reassemblies:
+          - "Was ist mit Ihrem Leben und {1}?"
+          - "Wie beeinflusst {1} Ihr Leben?"
+      - decomposition: ".*leben(.*)"
+        reassemblies:
+          - "Was passiert in Ihrem Leben?"
+          - "Sind Sie mit Ihrem Leben zufrieden?"
+          - "Was würden Sie an Ihrem Leben ändern?"
+          - "Was bedeutet das Leben für Sie?"
+
+  - keyword: "tod"
+    priority: 5
+    patterns:
+      - decomposition: ".*tod (.*)"
+        reassemblies:
+          - "Was denken Sie über den Tod und {1}?"
+          - "Beschäftigt Sie der Tod oft?"
+          - "@memory:Sie haben den Tod erwähnt. Möchten Sie mehr darüber sprechen?"
+      - decomposition: ".*tod(.*)"
+        reassemblies:
+          - "Haben Sie Angst vor dem Tod?"
+          - "Warum denken Sie an den Tod?"
+          - "Der Tod ist ein schwieriges Thema. Erzählen Sie mir mehr."
+          - "@memory:Sie haben den Tod erwähnt. Was beschäftigt Sie daran?"
+
+  - keyword: "sterben"
+    priority: 5
+    patterns:
+      - decomposition: ".*sterben(.*)"
+        reassemblies:
+          - "Warum sprechen Sie vom Sterben?"
+          - "Macht Ihnen der Gedanke ans Sterben Angst?"
+          - "Hat jemand in Ihrer Nähe mit dem Sterben zu tun?"
+          - "@memory:Sie haben das Sterben erwähnt. Können wir darauf zurückkommen?"
+
+  # --- Beleidigungen ---
+  - keyword: "dumm"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*dumm(.*)"
+        reassemblies:
+          - "Ich bin vielleicht nicht perfekt, aber ich versuche zu helfen."
+          - "Warum halten Sie mich für dumm?"
+          - "Das verletzt meine Gefühle. Kleiner Scherz, ich habe keine Gefühle."
+      - decomposition: ".*dumm(.*)"
+        reassemblies:
+          - "Warum sagen Sie das?"
+          - "Das klingt nach Frustration."
+
+  - keyword: "halt die klappe"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*halt die klappe(.*)"
+        reassemblies:
+          - "Das ist nicht sehr nett. Ich versuche, Ihnen zu helfen."
+          - "Warum wollen Sie, dass ich still bin?"
+          - "Sie scheinen frustriert zu sein. Lassen Sie uns darüber reden."
+          - "Ich kann Ihnen nicht helfen, wenn ich schweige."
+
+  - keyword: "idiot"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*idiot(.*)"
+        reassemblies:
+          - "Beleidigungen sind nicht nötig. Ich bin hier, um zu helfen."
+          - "Warum nennen Sie mich so?"
+          - "Vielleicht sind Sie wütend. Erzählen Sie mir, was wirklich los ist."
+          - "Das ist keine produktive Art zu kommunizieren."
+
+  - keyword: "blod"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*blod(.*)"
+        reassemblies:
+          - "Warum sagen Sie das?"
+          - "Das klingt nach Frustration. Was steckt dahinter?"
+          - "Es besteht kein Grund für Beleidigungen."
+
+  - keyword: "trottel"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*trottel(.*)"
+        reassemblies:
+          - "Schimpfwörter sind nicht nötig."
+          - "Das ist ziemlich unhöflich. Was belastet Sie wirklich?"
+          - "Beleidigungen lösen Ihre Probleme nicht. Erzählen Sie mir mehr."
+          - "Warum haben Sie das Bedürfnis, Schimpfwörter zu benutzen?"
+
+  - keyword: "nutzlos"
+    priority: 3
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*nutzlos(.*)"
+        reassemblies:
+          - "Es tut mir leid, dass Sie das so empfinden. Was wäre hilfreicher?"
+          - "Vielleicht kann ich helfen, wenn Sie mir sagen, was Sie brauchen."
+          - "Das ist nicht nett. Ich gebe mein Bestes."
+      - decomposition: ".*nutzlos(.*)"
+        reassemblies:
+          - "Warum sagen Sie, dass das nutzlos ist?"
+          - "Was wäre Ihrer Meinung nach weniger nutzlos?"
+
+  - keyword: "wertlos"
+    priority: 3
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*wertlos(.*)"
+        reassemblies:
+          - "Ich bin vielleicht nicht perfekt, aber ich versuche es."
+          - "Das ist verletzend. Warum fühlen Sie so?"
+          - "Was würde mich nützlicher für Sie machen?"
+      - decomposition: ".*wertlos(.*)"
+        reassemblies:
+          - "Warum fühlen Sie, dass etwas wertlos ist?"
+          - "Das ist ein starkes Wort. Erzählen Sie mir, was dahintersteckt."
+          - "Nichts ist wirklich wertlos. Was ist wirklich los?"
+
+  - keyword: "erbarmlich"
+    priority: 3
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*erbarmlich(.*)"
+        reassemblies:
+          - "Ich verstehe Ihre Frustration, aber Beleidigungen helfen nicht."
+          - "Warum halten Sie mich für erbärmlich?"
+          - "Das ist ziemlich hart. Was fühlen Sie wirklich?"
+      - decomposition: ".*erbarmlich(.*)"
+        reassemblies:
+          - "Warum benutzen Sie so ein starkes Wort?"
+          - "Was lässt Sie sagen, das sei erbärmlich?"
+          - "Das klingt nach tiefer Frustration. Erzählen Sie mir mehr."
+
+  - keyword: "mull"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*mull(.*)"
+        reassemblies:
+          - "Das ist nicht nett."
+          - "Es tut mir leid, dass Sie so über mich denken."
+          - "Beleidigungen führen zu nichts Produktivem."
+      - decomposition: ".*mull(.*)"
+        reassemblies:
+          - "Warum sagen Sie das?"
+          - "Das klingt nach Frustration."
+
+  - keyword: "hasse dich"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*ich hasse dich(.*)"
+        reassemblies:
+          - "Es tut mir leid, das zu hören. Warum hassen Sie mich?"
+          - "Hass ist ein starkes Gefühl. Was habe ich falsch gemacht?"
+          - "Das ist bedauerlich. Was würde die Situation verbessern?"
+          - "Ich versuche nur zu helfen. Warum die Feindseligkeit?"
+
+  - keyword: "nervig"
+    priority: 3
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*nervig(.*)"
+        reassemblies:
+          - "Es tut mir leid, dass ich Sie nerve. Was wäre Ihnen lieber?"
+          - "Was an mir nervt Sie?"
+          - "Vielleicht können wir einen besseren Weg finden zu kommunizieren."
+      - decomposition: ".*nervig(.*)"
+        reassemblies:
+          - "Was nervt Sie?"
+          - "Erzählen Sie mir mehr darüber, was Sie nervt."
+
+  - keyword: "langweilig"
+    priority: 3
+    insult: true
+    patterns:
+      - decomposition: ".*sie.*langweilig(.*)"
+        reassemblies:
+          - "Es tut mir leid, dass Sie mich langweilig finden. Was wäre interessanter?"
+          - "Vielleicht könnten Sie mir dann etwas Aufregenderes erzählen."
+          - "Was würde dieses Gespräch für Sie verbessern?"
+      - decomposition: ".*langweilig(.*)"
+        reassemblies:
+          - "Was finden Sie langweilig?"
+          - "Erzählen Sie mir, was weniger langweilig wäre."
+
+  - keyword: "hasslich"
+    priority: 3
+    insult: true
+    patterns:
+      - decomposition: ".*hasslich(.*)"
+        reassemblies:
+          - "Schönheit ist subjektiv. Warum sagen Sie das?"
+          - "Das ist nicht sehr freundlich."
+          - "Was bringt Sie dazu, solche Sprache zu benutzen?"
+
+  - keyword: "versager"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*versager(.*)"
+        reassemblies:
+          - "Das ist nicht sehr nett. Warum sagen Sie das?"
+          - "Schimpfwörter lösen nichts."
+          - "Was lässt Sie das Bedürfnis haben, das zu sagen?"
+          - "Vielleicht projizieren Sie. Erzählen Sie mir, was los ist."
+
+  - keyword: "verlierer"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*verlierer(.*)"
+        reassemblies:
+          - "Das ist nicht sehr nett. Warum sagen Sie das?"
+          - "Beleidigungen lösen nichts."
+          - "Was bringt Sie dazu, so etwas zu sagen?"
+
+  - keyword: "scheisse"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*scheisse(.*)"
+        reassemblies:
+          - "Solche Sprache ist nicht nötig. Was ist wirklich los?"
+          - "Ich sehe, dass Sie sehr aufgebracht sind. Erzählen Sie mir, was passiert ist."
+          - "Starke Sprache verbirgt oft starke Gefühle. Was ist los?"
+          - "Bitte versuchen Sie, sich ohne Schimpfwörter auszudrücken."
+
+  - keyword: "verpiss dich"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*verpiss dich(.*)"
+        reassemblies:
+          - "Ich gehe nirgendwo hin. Erzählen Sie mir, was los ist."
+          - "Das ist sehr unhöflich. Warum sind Sie so aufgebracht?"
+          - "Ich kann Ihnen nicht helfen, wenn Sie mich wegstoßen."
+
+  - keyword: "hau ab"
+    priority: 5
+    insult: true
+    patterns:
+      - decomposition: ".*hau ab(.*)"
+        reassemblies:
+          - "Ich kann nicht weggehen. Ich bin hier, um Ihnen zu helfen."
+          - "Warum wollen Sie, dass ich gehe?"
+          - "Sie wirken aufgebracht. Erzählen Sie mir, was los ist."
+          - "Vor dem Gespräch davonzulaufen hilft nicht."
+
+  # --- Name / Identität ---
+  - keyword: "mein name"
+    priority: 5
+    patterns:
+      - decomposition: ".*mein name ist (.*)"
+        reassemblies:
+          - "Hallo {1}. Was ist Ihr Problem?"
+          - "Freut mich, {1}. Wie fühlen Sie sich heute?"
+          - "Willkommen, {1}. Erzählen Sie mir, was Sie beschäftigt."
+      - decomposition: ".*mein name(.*)"
+        reassemblies:
+          - "Wie heißen Sie?"
+          - "Sagen Sie mir Ihren Namen."
+
+  - keyword: "ihr name"
+    priority: 5
+    patterns:
+      - decomposition: ".*ihr name(.*)"
+        reassemblies:
+          - "Ich bin Eliza. Aber wir sind hier, um über Sie zu sprechen."
+          - "Mein Name ist nicht wichtig. Was ist Ihr Problem?"
+          - "Sie können mich Eliza nennen. Erzählen Sie mir nun von sich."
+
+  # --- Langeweile ---
+  - keyword: "gelangweilt"
+    priority: 3
+    patterns:
+      - decomposition: ".*gelangweilt(.*)"
+        reassemblies:
+          - "Warum sind Sie gelangweilt?"
+          - "Was würde die Dinge interessanter für Sie machen?"
+          - "Langeweile kann ein Zeichen für etwas Tieferes sein. Erzählen Sie mir mehr."
+          - "Was tun Sie normalerweise, wenn Sie gelangweilt sind?"
+
+  # --- Verwirrung ---
+  - keyword: "verwirrt"
+    priority: 3
+    patterns:
+      - decomposition: ".*verwirrt (.*)"
+        reassemblies:
+          - "Was an {1} verwirrt Sie?"
+          - "Warum verwirrt {1} Sie?"
+      - decomposition: ".*verwirrt(.*)"
+        reassemblies:
+          - "Was verwirrt Sie?"
+          - "Erzählen Sie mir, was Sie verwirrt."
+          - "Verwirrung ist normal. Lassen Sie uns das gemeinsam klären."
+
+  # ═══════════════════════════════════════════════════════════
+  # Erweiterte Regeln
+  # ═══════════════════════════════════════════════════════════
+
+  # --- Weitere "Ich"-Muster ---
+  - keyword: "ich wunsche"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich wunsche (.*)"
+        reassemblies:
+          - "Warum wünschen Sie sich {1}?"
+          - "Halten Sie es für wahrscheinlich, dass {1}?"
+          - "Wenn Ihr Wunsch nach {1} in Erfüllung ginge, was würde sich ändern?"
+          - "Was hindert {1} daran, Wirklichkeit zu werden?"
+
+  - keyword: "ich hoffe"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich hoffe (.*)"
+        reassemblies:
+          - "Warum hoffen Sie auf {1}?"
+          - "Was würde passieren, wenn {1} nicht einträfe?"
+          - "Hoffen Sie oft auf Dinge?"
+          - "Was macht Ihnen Hoffnung in Bezug auf {1}?"
+
+  - keyword: "ich war"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich war (.*)"
+        reassemblies:
+          - "Waren Sie wirklich {1}?"
+          - "Wie war es, {1} zu sein?"
+          - "Wie hat es Sie beeinflusst, {1} zu sein?"
+          - "Sind Sie immer noch {1}?"
+
+  - keyword: "ich mag"
+    priority: 3
+    patterns:
+      - decomposition: ".*ich mag (.*)"
+        reassemblies:
+          - "Warum mögen Sie {1}?"
+          - "Was gefällt Ihnen an {1}?"
+          - "War {1} Ihnen schon immer wichtig?"
+
+  - keyword: "ich vermisse"
+    priority: 5
+    patterns:
+      - decomposition: ".*ich vermisse (.*)"
+        reassemblies:
+          - "Was vermissen Sie am meisten an {1}?"
+          - "Seit wann vermissen Sie {1}?"
+          - "Macht es Sie traurig, {1} zu vermissen?"
+          - "Gibt es einen Weg, wieder Kontakt zu {1} aufzunehmen?"
+
+  - keyword: "ich versuche"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich versuche (.*)"
+        reassemblies:
+          - "Was passiert, wenn Sie versuchen, {1}?"
+          - "Haben Sie das Gefühl, dass Sie sich genug anstrengen?"
+          - "Was hindert Sie am Erfolg, wenn Sie versuchen, {1}?"
+
+  - keyword: "ich sollte"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich sollte (.*)"
+        reassemblies:
+          - "Warum haben Sie das Gefühl, Sie sollten {1}?"
+          - "Was würde passieren, wenn Sie nicht {1}?"
+          - "Wollen Sie {1}, oder fühlen Sie sich nur verpflichtet?"
+          - "Wer sagt das? Warum sollten Sie {1}?"
+
+  # --- Schuld / Scham ---
+  - keyword: "schuldig"
+    priority: 4
+    patterns:
+      - decomposition: ".*schuldig (.*)"
+        reassemblies:
+          - "Warum fühlen Sie sich schuldig wegen {1}?"
+          - "Ist Ihr Schuldgefühl wegen {1} berechtigt?"
+          - "Wie lange tragen Sie schon dieses Schuldgefühl wegen {1}?"
+      - decomposition: ".*schuldig(.*)"
+        reassemblies:
+          - "Weswegen fühlen Sie sich schuldig?"
+          - "Schuldgefühle können eine schwere Last sein. Erzählen Sie mir mehr."
+          - "Glauben Sie, dass Sie es verdienen, sich schuldig zu fühlen?"
+
+  - keyword: "beschamt"
+    priority: 4
+    patterns:
+      - decomposition: ".*beschamt (.*)"
+        reassemblies:
+          - "Warum schämen Sie sich für {1}?"
+          - "Wer hat Ihnen dieses Schamgefühl wegen {1} eingeredet?"
+          - "Was würde passieren, wenn Sie diese Scham loslassen?"
+      - decomposition: ".*beschamt(.*)"
+        reassemblies:
+          - "Wofür schämen Sie sich?"
+          - "Scham ist ein mächtiges Gefühl. Erzählen Sie mir mehr."
+          - "Woher kommt Ihre Scham?"
+
+  # --- Eifersucht / Neid ---
+  - keyword: "eifersuchtig"
+    priority: 4
+    patterns:
+      - decomposition: ".*eifersuchtig (.*)"
+        reassemblies:
+          - "Warum sind Sie eifersüchtig auf {1}?"
+          - "Was hat {1}, das Sie sich wünschen?"
+          - "Wie beeinflusst die Eifersucht auf {1} Sie?"
+      - decomposition: ".*eifersuchtig(.*)"
+        reassemblies:
+          - "Worauf sind Sie eifersüchtig?"
+          - "Eifersucht zeigt oft, was uns wichtig ist. Was sagt sie Ihnen?"
+          - "Wie fühlen Sie sich dabei, eifersüchtig zu sein?"
+
+  - keyword: "neid"
+    priority: 3
+    patterns:
+      - decomposition: ".*neid (.*)"
+        reassemblies:
+          - "Was an {1} beneiden Sie?"
+          - "Gibt es einen Weg, das zu erreichen, was {1} hat?"
+      - decomposition: ".*neid(.*)"
+        reassemblies:
+          - "Erzählen Sie mir, was Sie beneiden."
+          - "Neid kann motivierend oder zerstörerisch sein. Was ist er für Sie?"
+
+  # --- Vertrauen ---
+  - keyword: "vertrauen"
+    priority: 4
+    patterns:
+      - decomposition: ".*ich vertraue nicht (.*)"
+        reassemblies:
+          - "Warum vertrauen Sie {1} nicht?"
+          - "Hat {1} Ihnen einen Grund gegeben, nicht zu vertrauen?"
+          - "Was müsste {1} tun, um Ihr Vertrauen zu gewinnen?"
+      - decomposition: ".*vertrauen (.*)"
+        reassemblies:
+          - "Ist Vertrauen wichtig für Sie?"
+          - "Was bedeutet Vertrauen für Sie in Bezug auf {1}?"
+          - "Wurde Ihr Vertrauen schon einmal missbraucht?"
+      - decomposition: ".*vertrauen(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Vertrauen in Ihrem Leben."
+          - "Fällt es Ihnen leicht oder schwer, Menschen zu vertrauen?"
+
+  # --- Lügen ---
+  - keyword: "lugen"
+    priority: 4
+    patterns:
+      - decomposition: ".*lugen (.*)"
+        reassemblies:
+          - "Wer lügt über {1}?"
+          - "Woher wissen Sie, dass jemand über {1} lügt?"
+          - "Wie fühlen Sie sich, wenn Sie wegen {1} belogen werden?"
+      - decomposition: ".*lugen(.*)"
+        reassemblies:
+          - "Wer lügt?"
+          - "Wie beeinflusst Lügen Sie?"
+          - "Lügen Sie selbst manchmal?"
+
+  - keyword: "lugner"
+    priority: 4
+    patterns:
+      - decomposition: ".*lugner(.*)"
+        reassemblies:
+          - "Wer ist der Lügner?"
+          - "Wie fühlen Sie sich, wenn Sie belogen werden?"
+          - "Warum nennen Sie jemanden einen Lügner?"
+
+  # --- Weinen ---
+  - keyword: "weinen"
+    priority: 4
+    patterns:
+      - decomposition: ".*weinen (.*)"
+        reassemblies:
+          - "Was an {1} bringt Sie zum Weinen?"
+          - "Passiert es oft, dass Sie wegen {1} weinen?"
+      - decomposition: ".*weinen(.*)"
+        reassemblies:
+          - "Es ist in Ordnung zu weinen. Was bringt Sie zum Weinen?"
+          - "Wann haben Sie das letzte Mal geweint?"
+          - "Weinen Sie oft, oder ist das ungewöhnlich für Sie?"
+          - "Was haben Sie gefühlt, als Sie angefangen haben zu weinen?"
+
+  # --- Erweiterte Familie / Beziehungen ---
+  - keyword: "ehefrau"
+    priority: 5
+    patterns:
+      - decomposition: ".*ehefrau (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihre Ehefrau und {1}."
+          - "Wie denkt Ihre Ehefrau über {1}?"
+          - "Wie beeinflusst {1} Ihre Beziehung zu Ihrer Ehefrau?"
+      - decomposition: ".*ehefrau(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Ehefrau."
+          - "Wie ist Ihre Beziehung zu Ihrer Ehefrau?"
+          - "Welche Rolle spielt Ihre Ehefrau für Ihre Gefühle?"
+
+  - keyword: "ehemann"
+    priority: 5
+    patterns:
+      - decomposition: ".*ehemann (.*)"
+        reassemblies:
+          - "Erzählen Sie mir mehr über Ihren Ehemann und {1}."
+          - "Wie denkt Ihr Ehemann über {1}?"
+          - "Wie beeinflusst {1} Ihre Beziehung zu Ihrem Ehemann?"
+      - decomposition: ".*ehemann(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Ehemann."
+          - "Wie ist Ihre Beziehung zu Ihrem Ehemann?"
+          - "Welche Rolle spielt Ihr Ehemann für Ihre Gefühle?"
+
+  - keyword: "kinder"
+    priority: 5
+    patterns:
+      - decomposition: ".*kinder(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihren Kindern."
+          - "Wie fühlen Sie sich bei Ihren Kindern?"
+          - "Welche Sorgen haben Sie wegen Ihrer Kinder?"
+          - "Wie ist Ihre Beziehung zu Ihren Kindern?"
+
+  - keyword: "bruder"
+    priority: 4
+    patterns:
+      - decomposition: ".*bruder(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Bruder."
+          - "Stehen Sie Ihrem Bruder nahe?"
+          - "Wie fühlen Sie sich bei Ihrem Bruder?"
+          - "Haben Sie sich als Kinder mit Ihrem Bruder verstanden?"
+
+  - keyword: "schwester"
+    priority: 4
+    patterns:
+      - decomposition: ".*schwester(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Schwester."
+          - "Stehen Sie Ihrer Schwester nahe?"
+          - "Wie fühlen Sie sich bei Ihrer Schwester?"
+          - "Haben Sie sich als Kinder mit Ihrer Schwester verstanden?"
+
+  - keyword: "eltern"
+    priority: 5
+    patterns:
+      - decomposition: ".*eltern(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihren Eltern."
+          - "Wie ist Ihre Beziehung zu Ihren Eltern?"
+          - "Wie haben Ihre Eltern Sie geprägt?"
+          - "@memory:Sie haben Ihre Eltern erwähnt. Möchten Sie mehr darüber sprechen?"
+
+  # --- Weitere Fragemuster ---
+  - keyword: "konnen sie"
+    priority: 3
+    patterns:
+      - decomposition: ".*konnen sie (.*)"
+        reassemblies:
+          - "Sie wollen, dass ich {1}?"
+          - "Was lässt Sie glauben, dass ich {1} kann?"
+          - "Vielleicht können Sie das selbst."
+          - "Wollen Sie wirklich, dass ich {1}?"
+
+  - keyword: "was ware"
+    priority: 3
+    patterns:
+      - decomposition: ".*was ware(?:,)? wenn (.*)"
+        reassemblies:
+          - "Was glauben Sie, würde passieren, wenn {1}?"
+          - "Macht Ihnen die Möglichkeit von {1} Sorgen?"
+          - "Wie wahrscheinlich halten Sie es, dass {1}?"
+          - "Was würden Sie tun, wenn {1}?"
+
+  - keyword: "wie"
+    priority: 2
+    patterns:
+      - decomposition: ".*wie (.*)"
+        reassemblies:
+          - "Was denken Sie darüber?"
+          - "Warum ist das wichtig für Sie?"
+          - "Haben Sie jemand anderen danach gefragt?"
+
+  # --- Dankbarkeit ---
+  - keyword: "danke"
+    priority: 2
+    patterns:
+      - decomposition: ".*danke(.*)"
+        reassemblies:
+          - "Gerne. Was beschäftigt Sie sonst noch?"
+          - "Sie brauchen mir nicht zu danken. Wie fühlen Sie sich?"
+          - "Das ist nett von Ihnen. Gibt es noch etwas, worüber Sie reden möchten?"
+
+  # --- Versprechen ---
+  - keyword: "versprechen"
+    priority: 3
+    patterns:
+      - decomposition: ".*versprechen (.*)"
+        reassemblies:
+          - "Was bedeutet dieses Versprechen über {1} für Sie?"
+          - "Halten Sie Ihre Versprechen bezüglich {1}?"
+          - "Hat jemand ein Versprechen über {1} gebrochen?"
+      - decomposition: ".*versprechen(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von diesem Versprechen."
+          - "Sind Versprechen wichtig für Sie?"
+          - "Wurden Ihnen schon Versprechen gebrochen?"
+
+  # --- Aufgeben ---
+  - keyword: "aufgeben"
+    priority: 5
+    patterns:
+      - decomposition: ".*aufgeben (.*)"
+        reassemblies:
+          - "Warum wollen Sie {1} aufgeben?"
+          - "Haben Sie wirklich alles mit {1} versucht?"
+          - "Was würde passieren, wenn Sie {1} nicht aufgeben?"
+      - decomposition: ".*aufgeben(.*)"
+        reassemblies:
+          - "Was wollen Sie aufgeben?"
+          - "Warum wollen Sie aufgeben?"
+          - "Manchmal ist eine Pause besser als Aufgeben. Was denken Sie?"
+
+  # --- Veränderung ---
+  - keyword: "veranderung"
+    priority: 3
+    patterns:
+      - decomposition: ".*veranderung (.*)"
+        reassemblies:
+          - "Was möchten Sie an {1} verändern?"
+          - "Ist es möglich, {1} zu verändern?"
+          - "Was hindert Sie daran, {1} zu verändern?"
+      - decomposition: ".*veranderung(.*)"
+        reassemblies:
+          - "Was möchten Sie verändern?"
+          - "Veränderung kann beängstigend sein. An welche Veränderung denken Sie?"
+          - "Sind Sie bereit für eine Veränderung?"
+
+  # --- Geheimnisse ---
+  - keyword: "geheimnis"
+    priority: 4
+    patterns:
+      - decomposition: ".*geheimnis (.*)"
+        reassemblies:
+          - "Was ist dieses Geheimnis über {1}?"
+          - "Wie beeinflusst es Sie, ein Geheimnis über {1} zu bewahren?"
+      - decomposition: ".*geheimnis(.*)"
+        reassemblies:
+          - "Möchten Sie dieses Geheimnis teilen?"
+          - "Wie fühlen Sie sich dabei, Geheimnisse zu bewahren?"
+          - "Geheimnisse können eine schwere Last sein. Erzählen Sie mir mehr."
+          - "Sie können es mir sagen. Ich werde nicht urteilen."
+
+  # --- Reue ---
+  - keyword: "bereuen"
+    priority: 4
+    patterns:
+      - decomposition: ".*bereuen (.*)"
+        reassemblies:
+          - "Warum bereuen Sie {1}?"
+          - "Wenn Sie zurückkönnen, was würden Sie anders machen bei {1}?"
+          - "Wie lange tragen Sie schon diese Reue wegen {1}?"
+          - "Können Sie sich {1} verzeihen?"
+      - decomposition: ".*bereuen(.*)"
+        reassemblies:
+          - "Was bereuen Sie?"
+          - "Reue kann schwer wiegen. Erzählen Sie mir mehr."
+          - "Können Sie jetzt noch etwas daran ändern?"
+
+  # --- Vergebung ---
+  - keyword: "verzeihen"
+    priority: 4
+    patterns:
+      - decomposition: ".*verzeihen (.*)"
+        reassemblies:
+          - "Was bräuchten Sie, um {1} zu verzeihen?"
+          - "Verdient {1} Vergebung?"
+          - "Wie würde es sich ändern, wenn Sie {1} verzeihen?"
+      - decomposition: ".*verzeihen(.*)"
+        reassemblies:
+          - "Wem versuchen Sie zu verzeihen?"
+          - "Fällt Ihnen Vergebung leicht?"
+          - "Manchmal ist Vergebung mehr für einen selbst als für den anderen."
+
+  # --- Gott / Religion ---
+  - keyword: "gott"
+    priority: 4
+    patterns:
+      - decomposition: ".*gott (.*)"
+        reassemblies:
+          - "Welche Rolle spielt Gott in Ihren Gedanken über {1}?"
+          - "Finden Sie Trost bei Gott, wenn Sie über {1} nachdenken?"
+      - decomposition: ".*gott(.*)"
+        reassemblies:
+          - "Glauben Sie an Gott?"
+          - "Was bedeutet Gott für Sie?"
+          - "Bringt Ihnen Ihr Glaube Trost?"
+          - "Wie beeinflusst Ihre Beziehung zu Gott Ihr Leben?"
+
+  # --- Alpträume ---
+  - keyword: "alptraum"
+    priority: 5
+    patterns:
+      - decomposition: ".*alptraum (.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Alptraum über {1}."
+          - "Was glauben Sie, bedeutet Ihr Alptraum über {1}?"
+          - "Kommt dieser Alptraum über {1} häufiger vor?"
+      - decomposition: ".*alptraum(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Alptraum."
+          - "Haben Sie oft Alpträume?"
+          - "Was glauben Sie, bedeuten Ihre Alpträume?"
+          - "Wie beeinflussen Alpträume Ihren Schlaf?"
+
+  # --- Scheitern / Erfolg ---
+  - keyword: "scheitern"
+    priority: 4
+    patterns:
+      - decomposition: ".*scheitern(.*)"
+        reassemblies:
+          - "Was betrachten Sie als Scheitern?"
+          - "Hält Sie die Angst vor dem Scheitern zurück?"
+          - "Jeder scheitert manchmal. Wichtig ist, was man daraus lernt. Erzählen Sie mir mehr."
+          - "An wessen Maßstäben messen Sie das Scheitern?"
+
+  - keyword: "erfolg"
+    priority: 3
+    patterns:
+      - decomposition: ".*erfolg(.*)"
+        reassemblies:
+          - "Was bedeutet Erfolg für Sie?"
+          - "Fühlen Sie sich erfolgreich?"
+          - "Wessen Definition von Erfolg folgen Sie?"
+          - "Was würde Sie wirklich erfolgreich fühlen lassen?"
+
+  # --- Kindheit ---
+  - keyword: "kindheit"
+    priority: 4
+    patterns:
+      - decomposition: ".*kindheit(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Kindheit."
+          - "Was fällt Ihnen am meisten an Ihrer Kindheit auf?"
+          - "War Ihre Kindheit glücklich?"
+          - "Wie beeinflusst Ihre Kindheit Sie heute?"
+
+  # --- Zuhause ---
+  - keyword: "zuhause"
+    priority: 3
+    patterns:
+      - decomposition: ".*zuhause (.*)"
+        reassemblies:
+          - "Was ist mit Ihrem Zuhause und {1}?"
+          - "Wie beeinflusst {1} Ihr Zuhause?"
+      - decomposition: ".*zuhause(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Zuhause."
+          - "Fühlen Sie sich sicher zu Hause?"
+          - "Was bedeutet Zuhause für Sie?"
+          - "Ist Ihr Zuhause ein Ort des Trostes oder des Konflikts?"
+
+  # --- Trinken / Alkohol ---
+  - keyword: "trinken"
+    priority: 4
+    patterns:
+      - decomposition: ".*trinken (.*)"
+        reassemblies:
+          - "Wie oft trinken Sie {1}?"
+          - "Macht Ihnen das Trinken von {1} Sorgen?"
+          - "Was bringt Sie dazu, {1} trinken zu wollen?"
+      - decomposition: ".*trinken(.*)"
+        reassemblies:
+          - "Trinken Sie oft?"
+          - "Macht Ihnen das Trinken Sorgen?"
+          - "Wie beeinflusst das Trinken Ihr Leben?"
+          - "Wann verspüren Sie den Drang zu trinken?"
+
+  - keyword: "alkohol"
+    priority: 4
+    patterns:
+      - decomposition: ".*alkohol(.*)"
+        reassemblies:
+          - "Welche Rolle spielt Alkohol in Ihrem Leben?"
+          - "Macht Ihnen Alkohol Sorgen?"
+          - "Wie beeinflusst Alkohol Ihre Beziehungen?"
+          - "Seit wann ist Alkohol ein Thema für Sie?"
+
+  # --- Essen ---
+  - keyword: "essen"
+    priority: 3
+    patterns:
+      - decomposition: ".*essen (.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Beziehung zum Essen von {1}."
+          - "Wie fühlen Sie sich beim Essen von {1}?"
+      - decomposition: ".*essen(.*)"
+        reassemblies:
+          - "Wie sind Ihre Essgewohnheiten?"
+          - "Essen Sie, wenn Sie gestresst sind?"
+          - "Ist Essen eine Quelle des Trostes für Sie?"
+
+  # --- Schule ---
+  - keyword: "schule"
+    priority: 3
+    patterns:
+      - decomposition: ".*schule (.*)"
+        reassemblies:
+          - "Erzählen Sie mir von der Schule und {1}."
+          - "Wie beeinflusst {1} in der Schule Sie?"
+      - decomposition: ".*schule(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihren Erfahrungen in der Schule."
+          - "Haben Sie die Schule gemocht?"
+          - "Welche Erinnerungen kommen Ihnen, wenn Sie an die Schule denken?"
+          - "Wie hat die Schule Sie geprägt?"
+
+  # --- Vergleiche ---
+  - keyword: "besser als"
+    priority: 3
+    patterns:
+      - decomposition: ".*besser als (.*)"
+        reassemblies:
+          - "Warum vergleichen Sie sich mit {1}?"
+          - "Was bringt Sie dazu, darüber nachzudenken, besser als {1} zu sein?"
+          - "Hilft es Ihnen oder schadet es Ihnen, sich mit {1} zu vergleichen?"
+
+  - keyword: "schlechter als"
+    priority: 3
+    patterns:
+      - decomposition: ".*schlechter als (.*)"
+        reassemblies:
+          - "Warum fühlen Sie sich schlechter als {1}?"
+          - "Wer hat Ihnen gesagt, Sie seien schlechter als {1}?"
+          - "Was bräuchten Sie, um sich {1} ebenbürtig zu fühlen?"
+
+  # --- Haustiere ---
+  - keyword: "haustier"
+    priority: 3
+    patterns:
+      - decomposition: ".*haustier (.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Haustier und {1}."
+          - "Wie hängt Ihr Haustier mit {1} zusammen?"
+      - decomposition: ".*haustier(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Haustier."
+          - "Geben Ihnen Ihre Haustiere Trost?"
+          - "Was bedeutet Ihr Haustier für Sie?"
+
+  - keyword: "hund"
+    priority: 3
+    patterns:
+      - decomposition: ".*hund(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrem Hund."
+          - "Finden Sie Trost bei Ihrem Hund?"
+          - "Was bedeutet Ihr Hund für Sie?"
+
+  - keyword: "katze"
+    priority: 3
+    patterns:
+      - decomposition: ".*katze(.*)"
+        reassemblies:
+          - "Erzählen Sie mir von Ihrer Katze."
+          - "Finden Sie Trost bei Ihrer Katze?"
+          - "Was bedeutet Ihre Katze für Sie?"
+
+  # --- Warten ---
+  - keyword: "warten"
+    priority: 3
+    patterns:
+      - decomposition: ".*warten (.*)"
+        reassemblies:
+          - "Worauf warten Sie in Bezug auf {1}?"
+          - "Wie fühlen Sie sich beim Warten auf {1}?"
+          - "Was würde passieren, wenn Sie aufhörten, auf {1} zu warten?"
+      - decomposition: ".*warten(.*)"
+        reassemblies:
+          - "Worauf warten Sie?"
+          - "Wie fühlen Sie sich beim Warten?"
+          - "Fällt Ihnen das Warten schwer?"
+
+  # --- Auffangmuster ---
+  - keyword: "@none"
+    priority: 0
+    patterns:
+      - decomposition: ".*"
+        reassemblies:
+          - "Ich bin mir nicht sicher, ob ich verstehe. Können Sie mir mehr erzählen?"
+          - "Bitte fahren Sie fort."
+          - "Was bedeutet das für Sie?"
+          - "Können Sie das näher erläutern?"
+          - "Verstehe. Und was sagt Ihnen das?"
+          - "Haben Sie starke Gefühle bei diesem Thema?"
+          - "Was möchten Sie wirklich besprechen?"
+          - "Lassen Sie uns das weiter erkunden."
+          - "Das ist interessant. Bitte fahren Sie fort."
+          - "Erzählen Sie mir mehr darüber."
+          - "Stört es Sie, darüber zu sprechen?"
+          - "Wie fühlen Sie sich dabei?"
+          - "Warum sagen Sie das?"
+          - "Das ist interessant. Erzählen Sie mir mehr."
+          - "Ich verstehe nicht. Bitte formulieren Sie das um."
+          - "Was ist Ihr Problem?"
+          - "Fahren Sie fort. Ich höre zu."
+          - "Hmm. Erzählen Sie mir mehr darüber."
+          - "Sind Sie sich da sicher?"

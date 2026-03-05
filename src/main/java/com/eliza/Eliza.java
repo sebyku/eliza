@@ -156,7 +156,8 @@ public class Eliza {
 
     static String stripAccents(String text) {
         String result = text.replace("œ", "oe").replace("Œ", "OE")
-                .replace("æ", "ae").replace("Æ", "AE");
+                .replace("æ", "ae").replace("Æ", "AE")
+                .replace("ß", "ss").replace("ẞ", "SS");
         String normalized = Normalizer.normalize(result, Normalizer.Form.NFD);
         return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }

@@ -12,7 +12,9 @@ export function stripAccents(text) {
     .replace(/œ/g, 'oe')
     .replace(/Œ/g, 'OE')
     .replace(/æ/g, 'ae')
-    .replace(/Æ/g, 'AE');
+    .replace(/Æ/g, 'AE')
+    .replace(/ß/g, 'ss')
+    .replace(/ẞ/g, 'SS');
   // NFD normalize then strip combining diacritical marks
   result = result.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   return result;

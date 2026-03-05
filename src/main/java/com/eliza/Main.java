@@ -18,10 +18,10 @@ public class Main {
         String language = "us";
         if (args.length > 0) {
             String arg = args[0].toLowerCase();
-            if ("fr".equals(arg) || "us".equals(arg)) {
+            if ("fr".equals(arg) || "us".equals(arg) || "de".equals(arg) || "es".equals(arg)) {
                 language = arg;
             } else {
-                System.err.println("Unknown language: " + args[0] + ". Supported: us, fr. Defaulting to us.");
+                System.err.println("Unknown language: " + args[0] + ". Supported: us, fr, de, es. Defaulting to us.");
             }
         }
 

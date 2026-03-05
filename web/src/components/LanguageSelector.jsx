@@ -1,21 +1,25 @@
 /**
- * Simple language toggle between English (us) and French (fr).
+ * Language selector for English, French, German, and Spanish.
  */
 export default function LanguageSelector({ language, onSwitch }) {
+  const languages = [
+    { code: 'us', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'es', label: 'Español' },
+  ];
+
   return (
     <div className="language-selector">
-      <button
-        className={language === 'us' ? 'active' : ''}
-        onClick={() => onSwitch('us')}
-      >
-        English
-      </button>
-      <button
-        className={language === 'fr' ? 'active' : ''}
-        onClick={() => onSwitch('fr')}
-      >
-        Français
-      </button>
+      {languages.map(({ code, label }) => (
+        <button
+          key={code}
+          className={language === code ? 'active' : ''}
+          onClick={() => onSwitch(code)}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 }
